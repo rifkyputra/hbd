@@ -16,15 +16,26 @@ class GiselleGame extends StatefulWidget with WrapRoute {
 
 class _GiselleGameState extends State<GiselleGame> {
   int position = 0;
+  bool mulai = true;
 
-  final itemcount = 18;
+  final itemcount = 17;
 
   final trivia = [
-    '''Giselle lahir pada 20 December 2006
+    '''Giselle lahir pada 20 Desember 2006
     ''',
-    '''Giselle member kedua termuda setelah raisha
+    '''Giselle member kedua termuda setelah raisha di Generasi 10
     ''',
     '''Jiko Giselle : H-A-P-P-Y! Aku akan membuatmu terpanah pada pandangan yang pertama.
+    ''',
+    '''Sebelum ke Jakarta, Giselle pernah tinggal di Belitung. Rumah nya berada di pinggir pantai.
+    ''',
+    '''Shonichi Teater pertama adalah Seishun Girl pada tanggal 28 Mei 2022
+    ''',
+    '''Giselle mempunyai Golongan Darah A
+    ''',
+    '''Giselee saat SR "Tower Itu Apa Bang?"
+    ''',
+    '''Mempunyai 2 Adik Perempuan
     ''',
   ];
   @override
@@ -63,12 +74,12 @@ class _GiselleGameState extends State<GiselleGame> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'Happy Birthday ke-17',
+                              'Happy Birthday ke-16',
                               style: Theme.of(context).textTheme.headlineSmall,
                             ),
                             const SizedBox(height: 27),
                             const Text(
-                              'Semoga Angan mu terwujud dan menjadi idol yang lebih baik lagi. Aku Akan selalu mendukungmu.',
+                              'Semoga Angan mu terwujud dan menjadi idol yang lebih baik lagi. Kami Akan selalu mendukungmu.',
                             ),
                           ],
                         ),
@@ -107,13 +118,16 @@ class _GiselleGameState extends State<GiselleGame> {
                               3: 'agam1.jpg',
                               5: 'agam5.jpg',
                               7: 'agam2.jpg',
+                              9: 'agam4.jpg',
                               11: 'agam8.jpg',
                               13: 'agam9.jpg',
                               15: 'agam6.jpg',
                               16: 'agam7.jpg',
-                              17: 'agam4.jpg',
-                              18: 'hbd.png',
+                              17: 'hbd.png',
                             };
+
+                            final isActive =
+                                context.watch<PositionCubit>().state == index;
 
                             return Container(
                               height: 100,
@@ -135,6 +149,9 @@ class _GiselleGameState extends State<GiselleGame> {
                                     Align(
                                       alignment: Alignment.topLeft,
                                       child: CircleAvatar(
+                                        backgroundColor: isActive
+                                            ? Colors.red
+                                            : Colors.black87,
                                         child: Text(
                                           '${index + 1}',
                                           style: Theme.of(context)
@@ -142,20 +159,15 @@ class _GiselleGameState extends State<GiselleGame> {
                                               .bodySmall!
                                               .copyWith(color: Colors.white),
                                         ),
-                                        backgroundColor: Colors.black87,
                                       ),
                                     ),
                                   Expanded(
                                       child: AnimatedOpacity(
                                     curve: Curves.bounceInOut,
                                     duration: const Duration(milliseconds: 450),
-                                    opacity:
-                                        context.watch<PositionCubit>().state ==
-                                                index
-                                            ? 1
-                                            : 0,
+                                    opacity: isActive ? 1 : 0,
                                     child: Padding(
-                                      padding: EdgeInsets.all(4),
+                                      padding: const EdgeInsets.all(4),
                                       child: Image.asset(
                                         'assets/pawn.png',
                                         height: 50,
@@ -180,7 +192,7 @@ class _GiselleGameState extends State<GiselleGame> {
                   child: Container(
                     decoration: const BoxDecoration(
                       color: Color.fromARGB(255, 202, 199, 197),
-                      borderRadius: const BorderRadius.only(
+                      borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(30),
                           topRight: Radius.circular(30)),
                     ),
@@ -191,25 +203,33 @@ class _GiselleGameState extends State<GiselleGame> {
                         children: [
                           InkWell(
                             onTap: () {
-                              setState(() {
-                                context.read<DiceShuffleBloc>().add(
-                                      Shuffle(
-                                        delay:
-                                            const Duration(milliseconds: 100),
-                                        times: 10,
-                                      ),
-                                    );
-                              });
+                              if (mulai) {
+                                setState(() => mulai = false);
+                              }
+                              context.read<DiceShuffleBloc>().add(
+                                    Shuffle(
+                                      delay: const Duration(milliseconds: 100),
+                                      times: 10,
+                                    ),
+                                  );
                             },
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
+                            child: Stack(
                               children: [
-                                ConstrainedBox(
-                                  constraints:
-                                      const BoxConstraints(minWidth: 100),
-                                  child: Image.asset(
-                                      'assets/${context.watch<DiceShuffleBloc>().state.state}.png'),
+                                Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    ConstrainedBox(
+                                      constraints:
+                                          const BoxConstraints(minWidth: 100),
+                                      child: Image.asset(
+                                          'assets/${context.watch<DiceShuffleBloc>().state.state}.png'),
+                                    ),
+                                  ],
                                 ),
+                                if (mulai)
+                                  const Chip(
+                                    label: Text('klik untuk mulai'),
+                                  )
                               ],
                             ),
                           ),
