@@ -29,13 +29,11 @@ class _GiselleGameState extends State<GiselleGame> {
     ''',
     '''Sebelum ke Jakarta, Giselle pernah tinggal di Belitung. Rumah nya berada di pinggir pantai.
     ''',
-    '''Shonichi Teater pertama adalah Seishun Girl pada tanggal 28 Mei 2022
+    '''Shonichi Teater pertama adalah Seishun Girl pada tanggal 28 Mei 2022.
     ''',
-    '''Giselle mempunyai Golongan Darah A
+    '''Giselle mempunyai Golongan Darah A.
     ''',
-    '''Giselee saat SR "Tower Itu Apa Bang?"
-    ''',
-    '''Mempunyai 2 Adik Perempuan
+    '''Mempunyai 2 Adik Perempuan.
     ''',
   ];
   @override
@@ -73,13 +71,16 @@ class _GiselleGameState extends State<GiselleGame> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
+                            Image.asset('assets/hbd.png'),
+                            const SizedBox(height: 10),
                             Text(
                               'Happy Birthday ke-16',
                               style: Theme.of(context).textTheme.headlineSmall,
                             ),
                             const SizedBox(height: 27),
-                            const Text(
-                              'Semoga Angan mu terwujud dan menjadi idol yang lebih baik lagi. Kami Akan selalu mendukungmu.',
+                            Text(
+                              'Halo Giselle, cuma mau bilang terima kasih udah menjadi dirimu sendiri. Aku suka lihat giselle yang sekarang, idol yang periang, gemas, fearless, dan juga berani punya mimpi tinggi. Aku juga pengen jadi saksi perkembangan kamu ke depan. Semoga kita tumbuh dan berkembang bersama ya!',
+                              style: Theme.of(context).textTheme.labelLarge,
                             ),
                           ],
                         ),
